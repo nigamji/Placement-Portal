@@ -52,8 +52,7 @@ const Drive = new mongoose.Schema({
         belowPackage: {
             type: Number
         }
-    },
-    Date
+    }
 
 })
 module.exports = mongoose.model('drive', Drive);
