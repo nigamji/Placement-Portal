@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var student = mongoose.Schema(
+var student = new mongoose.Schema(
     {
 Email_Address:
     {
@@ -146,4 +146,6 @@ placedIn:{
 }
 
 
-    })
+    });
+module.exports = mongoose.model('student', student); 
+
