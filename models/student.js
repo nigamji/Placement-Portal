@@ -147,5 +147,5 @@ placedIn:{
 
 
     });
-module.exports = mongoose.model('student', student); 
+module.exports = mongoose.model('student', student , 'placementdata'); 
 
