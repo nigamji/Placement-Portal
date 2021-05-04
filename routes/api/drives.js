@@ -55,17 +55,5 @@ router.post('/new-drive', [auth, [
         res.status(500).send("Server Error");
     }
 })
-// @route GET api/drive/drive-id
-// @desc get drive name and id for filter
-// @access private
-router.get('/drive-id', auth, async (req, res) => {
-    try {
-        let drive = await Drive.find().select('_id, companyName');
-        res.json(drive)
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send("Server Error");
-    }
-})
 
 module.exports = router;
