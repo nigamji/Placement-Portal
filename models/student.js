@@ -58,8 +58,7 @@ var student = new mongoose.Schema(
         Present_Address
             :
         {
-            type: String,
-            required: true
+            type: String
         },
         Permanent_Address
             :
