@@ -1,5 +1,5 @@
 const express = require('express');
-const student = require('../../models/student');
+const Student = require('../../models/student');
 const Drive = require('../../models/Drive')
 const router = express.Router();
 const auth = require('../../middleware/auth')
@@ -8,13 +8,26 @@ const auth = require('../../middleware/auth')
 // @access private
 router.get('/get-branch', auth, async (req, res) => {
     try {
-        const branch = await student.find().distinct('Branch');
+        const branch = await Student.find().distinct('Branch');
         res.json(branch);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error")
     }
 })
+// @route GET api/filter/get-college
+// @desc get college name
+// @access private
+router.get('/get-college', auth, async (req, res) => {
+    try {
+        const college = await Student.find().distinct('College');
+        res.json(college);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Server Error")
+    }
+})
+
 // @route GET api/filter/drive-id
 // @desc get drive name and id for filter
 // @access private

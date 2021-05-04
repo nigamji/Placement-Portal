@@ -3,6 +3,10 @@ const router = express.Router();
 const Drive = require('../../models/Drive')
 const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
+const nodemailer = require('nodemailer')
+const { google } = require('googleapis')
+
+
 
 // @route POST api/drive/new-drive
 // @desc create a new Drive
@@ -54,6 +58,62 @@ router.post('/new-drive', [auth, [
         console.log(error.message);
         res.status(500).send("Server Error");
     }
+    const CLIENT_ID = '192702518709-t4d567c9j45lte47eovtlj8ucs74uhus.apps.googleusercontent.com'
+    const CLIENT_SECRET = 'V4vbq4_-jGkIWc4EpFRuax_L'
+    const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+    const REFRESH_TOKEN = '1//043Er0fRBXQfeCgYIARAAGAQSNwF-L9IrulBNai3MFDUNvKfW7VROYxehKO_kjYuagyQ6zGvAMDSGTmv2gzWaS2PTXpBNX3U5xdY'
+    const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+    oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+    try {
+        const accessToken = await oAuth2Client.getAccessToken();
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: 'aryannigam18@gmail.com',
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken
+            }
+        })
+        const outputBody = `
+        <h1>New Drive Announcemt</h1>
+        <h3>Drive details</h3>
+        <hr/>
+        <ul>
+            <li>Company: ${companyName}</li>
+            <li>Package: ${package}</li>
+            <li>Branches: ${branch}</li>
+            <li>Description: ${desc}</li>
+        </ul>
+        `
+        const mailOptions = {
+            from: 'Aryan <aryannigam18@gmail.com>',
+            to: 'aryannigamofficial@gmail.com, anamika.atiwari01@gmail.com',
+            subject: 'New Drive Announcement',
+            text: outputBody,
+            html: outputBody
+        }
+        const result = await transport.sendMail(mailOptions);
+        res.json(result)
+
+    } catch (error) {
+        console.log(error.message)
+    }
 })
 
+// @route GET api/drive/
+// @desc Get all Drives
+// @access private
+router.get('/', auth, async (req, res) => {
+    try {
+        const drives = await Drive.find();
+        res.json(drives)
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server Error')
+    }
+})
 module.exports = router;
