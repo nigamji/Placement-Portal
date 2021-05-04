@@ -1,4 +1,5 @@
 # Minor-Project
-For now its just
-1. npm install
-2. npm run server
+
+## For now its just
+- npm install
+- npm run server

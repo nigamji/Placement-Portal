@@ -15,6 +15,7 @@ router.get('/get-branch', auth, async (req, res) => {
         res.status(500).send("Server Error")
     }
 })
+
 // @route GET api/filter/get-college
 // @desc get college name
 // @access private
