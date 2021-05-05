@@ -40,8 +40,8 @@ var student = new mongoose.Schema(
 
         Contact_Number: {
             type: Number,
-            min: 10,
-            max: 10,
+            min: 0,
+            max: 9999999999,
             required: true
         },
 
