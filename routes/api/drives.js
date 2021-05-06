@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Drive = require('../../models/Drive')
+const Student = require('../../models/student')
 const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 const nodemailer = require('nodemailer')
@@ -131,5 +132,35 @@ router.get('/:id', auth, async (req, res) => {
     }
 
 })
-
+// @route POST api/drive/drive-placed-student/:id
+// @desc Add placed student enroll in particular drive
+// @access private
+router.post('/drive-placed-student/:id', auth, async (req, res) => {
+    try {
+        // const drive = await Drive.findById(req.params.id);
+        const { enrollmentNo } = req.body;
+        let number = null
+        if (enrollmentNo) number = enrollmentNo.split(',').map(number => number.trim())
+        number.forEach(async element => {
+            try {
+                const placedIn = await Student.find({ Enrollment_No: element }).select('placedIn');
+                console.log("1st " + placedIn)
+                let main = placedIn
+                console.log(main)
+                const student = await Student.findOneAndUpdate(
+                    { Enrollment_No: element },
+                    { $set: { "placedIn": main, isPlaced: true } },
+                    { new: true }
+                )
+                res.json(student)
+            } catch (error) {
+                console.error(error.message);
+            }
+        });
+        res.send("hua");
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send('Server Error')
+    }
+})
 module.exports = router;
