@@ -116,4 +116,20 @@ router.get('/', auth, async (req, res) => {
         res.status(500).send('Server Error')
     }
 })
+
+
+// @route Get api/drive/:id
+// @desc get drive by id
+// @access private
+router.get('/:id', auth, async (req, res) => {
+    try {
+        let drive = await Drive.findById(req.params.id)
+        res.json(drive)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send('Server Error')
+    }
+
+})
+
 module.exports = router;
