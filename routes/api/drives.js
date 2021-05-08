@@ -136,31 +136,37 @@ router.get('/:id', auth, async (req, res) => {
 // @desc Add placed student enroll in particular drive
 // @access private
 router.post('/drive-placed-student/:id', auth, async (req, res) => {
+    // const drive = await Drive.findById(req.params.id);
+    const { enrollmentNo } = req.body;
+    let number = null
+    if (enrollmentNo) number = enrollmentNo.split(',').map(number => number.trim())
+    number.forEach(async element => {
+        try {
+            const studentRecord = await Student.find({ Enrollment_No: element });
+            let studentPlacedIn = studentRecord[0].placedIn;
+            studentPlacedIn.push(req.params.id);
+            const student = await Student.findOneAndUpdate(
+                { Enrollment_No: element },
+                { $set: { "placedIn": studentPlacedIn, isPlaced: true } },
+                { new: true }
+            )
+            res.send("Placed students record updated")
+        } catch (error) {
+            res.status(401).send("Enrollment not found");
+            console.error(error.message);
+        }
+    });
+})
+// @route DElete api/drive/:id
+// @desc Delete drive by id
+// @access private
+router.delete('/:id', auth, async (req, res) => {
     try {
-        // const drive = await Drive.findById(req.params.id);
-        const { enrollmentNo } = req.body;
-        let number = null
-        if (enrollmentNo) number = enrollmentNo.split(',').map(number => number.trim())
-        number.forEach(async element => {
-            try {
-                const placedIn = await Student.find({ Enrollment_No: element }).select('placedIn');
-                console.log("1st " + placedIn)
-                let main = placedIn
-                console.log(main)
-                const student = await Student.findOneAndUpdate(
-                    { Enrollment_No: element },
-                    { $set: { "placedIn": main, isPlaced: true } },
-                    { new: true }
-                )
-                res.json(student)
-            } catch (error) {
-                console.error(error.message);
-            }
-        });
-        res.send("hua");
+        await Drive.findByIdAndRemove(req.params.id)
+        res.send('Drive deleted')
     } catch (error) {
-        console.error(error.message)
-        res.status(500).send('Server Error')
+        console.log(error.message)
+        res.status(500).send('Server Error');
     }
 })
 module.exports = router;

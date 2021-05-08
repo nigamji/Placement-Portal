@@ -28,7 +28,7 @@ router.post('/', auth, async (req, res) => {
 
     try {
         const totalItems = await Student.count(search);
-        const page = await Student.find(search).skip((pageNo * ipp) - ipp).limit(ipp);
+        const page = await Student.find(search).skip((pageNo * ipp) - ipp).limit(ipp).populate({ path: 'placedIn', model: 'drive' });
 
         //const page = await Student.find(search).skip(0).limit(5);
         res.json([page, { "page": pageNo, "totalPage": Math.ceil(totalItems / ipp), "Result Found": totalItems }]);

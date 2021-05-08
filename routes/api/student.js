@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const Drive = require('../../models/Drive')
+const Drive = require('../../models/Drive')
 const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 
@@ -10,7 +10,7 @@ const Student = require('../../models/student');
 // @access public
 router.get('/', async (req, res) => {
     try {
-        let student = await Student.find();
+        let student = await Student.find().populate({ path: 'placedIn', model: 'drive' });
         res.json(student)
     } catch (error) {
         console.log(error.message)
@@ -123,8 +123,8 @@ router.post('/add-new', [auth,
 // @access private
 router.get('/:id', auth, async (req, res) => {
     try {
-        const student = await Student.findById(req.params.id);
-        res.json(student);
+        const students = await Student.findById(req.params.id).populate({ path: 'placedIn', model: 'drive' })
+        res.json(students);
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error');
@@ -187,7 +187,6 @@ router.put('/edit/:id', [auth,
             Sem_4_SGPA,
             Sem_5_SGPA,
             isPlaced,
-            placedIn
         } = req.body;
         let studentFields = {};
         if (Email_Address) studentFields.Email_Address = Email_Address;
@@ -217,7 +216,6 @@ router.put('/edit/:id', [auth,
         if (Sem_4_SGPA) studentFields.Sem_4_SGPA = Sem_4_SGPA;
         if (Sem_5_SGPA) studentFields.Sem_5_SGPA = Sem_5_SGPA;
         if (isPlaced) studentFields.isPlaced = isPlaced;
-        if (placedIn) studentFields.placedIn = placedIn.split(',').map(placed => placed.trim());
         try {
             let student = await Student.findOneAndUpdate(
                 { _id: req.params.id },
