@@ -1,0 +1,214 @@
+@import 'config';
+@import 'button';
+@import 'Details';
+@import 'style';
+
+*{
+    font-family: $fontAll;
+}
+.top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    // position: fixed;
+    z-index: 1;
+    width: 100%;
+    border-bottom: solid 1px #000000;
+    img{
+        margin-right: 5%;
+    }
+    .navbar{
+        display: flex;
+        flex-direction: row;
+    }
+    ul{
+        display: flex;
+        list-style-type: none;
+        flex-direction: row;
+        padding: 0%;
+        width:400;
+        li{
+            margin:0% 5%;
+            color: #000000;
+            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
+        }
+        a{
+        text-decoration: none;
+        color: #000000;
+
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+    .logoutbtn{
+        margin:0% 2%;
+        padding: 0% 1%;
+        border-radius: 20px;
+    }
+    
+}
+
+
+.MainBody{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 95vh;
+    justify-content: end;
+    // justify-content: flex-end;
+    // position: relative;
+    h2{
+        text-align: center;
+        margin: 10px 0 0 0;
+        color: $headCol;
+        font-weight: 500;
+        font-family: $fontAll;
+        text-decoration: underline;
+        
+    }
+}
+.CardHolder{
+    margin: 0.4rem;
+    border: 2px solid#eee;
+    padding: 1rem;
+    border-radius: 20px;
+    height: 70vh;
+    overflow: scroll;
+    background-color: $primaryCol;
+    &::-webkit-scrollbar {
+        width: 20px;
+      }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }     
+      &::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+      } 
+      &::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+        border-radius: 20px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #d6dee1;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+      }
+    &-card{
+        box-sizing: border-box;
+        background-color: #ffff;
+        border-radius: 10px;
+        margin: 1rem auto;
+        border: 1px solid #eee;
+        width: 90%;
+        padding: 1rem;
+        box-shadow: 0 1px 2px #cfcfcf;
+        h4{
+            text-align: center;
+            margin: auto;
+        }
+        article{
+            text-align: center;
+            color: $light-color;
+        }
+
+    }
+}
+.Flex{
+    display: flex;
+    &-aligned{
+    align-items: center;
+    }
+    &-column{
+        flex-direction: column;
+    }
+    &-center{
+        justify-content: center;
+    }
+}
+.New{
+    margin: auto;
+    text-align: center;
+    font-size: small;
+}
+.ContentHead{
+    justify-content: space-between;
+    span{
+        font-weight: bold;
+    }
+}
+.form{
+    border: 2px  solid #ccc;
+    border-radius: 20px;
+    background-color: $primaryCol;
+    height: 70vh;
+    overflow: scroll;
+    margin: 0.5% 5%;
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }     
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $headCol;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+    }
+}
+
+.DriveForm{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    width: auto;
+    margin: auto;
+    
+    h4{
+        margin: 0;
+    }
+    &-column{
+        display: flex;
+        flex-direction: column;
+        padding: 3%;
+        margin: 3%;
+        label{
+            font-size: large;
+            margin-bottom: 0.3rem;
+        }
+        input, select, textArea{
+            border:  1px solid #ccc;
+            border-radius: 20px;
+            border-bottom-width: 2px;
+            padding: 0.4rem;
+            margin: 1rem 0;
+            &:focus{
+                outline: none;
+            }
+        }
+        textArea{
+            width: 130%;
+        }
+        &-border{
+            box-sizing: border-box;
+            border: 2px solid #eee;
+            height: fit-content;
+            background-color: white;
+        }
+        &-compact{
+            input, textArea{
+                margin: 0 0 1rem 0;
+            }
+        }
+    }
+
+}
+.send-button{
+    display: flex;
+    justify-content: flex-end;
+}
