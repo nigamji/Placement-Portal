@@ -62,7 +62,7 @@ router.post('/new-drive', [auth, [
     const CLIENT_ID = '192702518709-t4d567c9j45lte47eovtlj8ucs74uhus.apps.googleusercontent.com'
     const CLIENT_SECRET = 'V4vbq4_-jGkIWc4EpFRuax_L'
     const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-    const REFRESH_TOKEN = '1//043Er0fRBXQfeCgYIARAAGAQSNwF-L9IrulBNai3MFDUNvKfW7VROYxehKO_kjYuagyQ6zGvAMDSGTmv2gzWaS2PTXpBNX3U5xdY'
+    const REFRESH_TOKEN = '1//04CGBIYa7GoLLCgYIARAAGAQSNwF-L9IrjBdUMO4CtD4XKd21TLQ-a5O24FDiu2Mfb7iYEbkSySAu4C5DTvczF0dqqIGGruAaEP8'
     const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
     try {
@@ -91,7 +91,7 @@ router.post('/new-drive', [auth, [
         `
         const mailOptions = {
             from: 'Aryan <aryannigam18@gmail.com>',
-            to: 'aryannigamofficial@gmail.com, anamika.atiwari01@gmail.com',
+            to: 'aryannigamofficial@gmail.com, anamika.atiwari01@gmail.com, pandeykaushik0310@gmail.com',
             subject: 'New Drive Announcement',
             text: outputBody,
             html: outputBody
@@ -100,7 +100,7 @@ router.post('/new-drive', [auth, [
         res.json(result)
 
     } catch (error) {
-        console.log(error.message)
+        console.log("Mail " + error.message)
     }
 })
 
