@@ -132,19 +132,25 @@ router.get('/:id', auth, async (req, res) => {
     }
 
 })
-// @route POST api/drive/drive-placed-student/:id
+// @route POST api/drive/drive-placed-student/
 // @desc Add placed student enroll in particular drive
 // @access private
-router.post('/drive-placed-student/:id', auth, async (req, res) => {
+router.post('/drive-placed-student/', [auth,
+    check('enrollmentNo', 'Enrollment is required seperated by ', ' ').not().isEmpty()
+], async (req, res) => {
     // const drive = await Drive.findById(req.params.id);
-    const { enrollmentNo } = req.body;
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        res.status(400).json({ err: error.array() })
+    }
+    const { id, enrollmentNo } = req.body;
     let number = null
     if (enrollmentNo) number = enrollmentNo.split(',').map(number => number.trim())
     number.forEach(async element => {
         try {
             const studentRecord = await Student.find({ Enrollment_No: element });
             let studentPlacedIn = studentRecord[0].placedIn;
-            studentPlacedIn.push(req.params.id);
+            studentPlacedIn.push(id);
             const student = await Student.findOneAndUpdate(
                 { Enrollment_No: element },
                 { $set: { "placedIn": studentPlacedIn, isPlaced: true } },
@@ -160,9 +166,10 @@ router.post('/drive-placed-student/:id', auth, async (req, res) => {
 // @route DElete api/drive/:id
 // @desc Delete drive by id
 // @access private
-router.delete('/:id', auth, async (req, res) => {
+router.post('/delete', auth, async (req, res) => {
+    const { id } = req.body;
     try {
-        await Drive.findByIdAndRemove(req.params.id)
+        await Drive.findByIdAndRemove(id)
         res.send('Drive deleted')
     } catch (error) {
         console.log(error.message)
