@@ -8,9 +8,9 @@ import Home from './Component/Layout/Home'
 import React, { useEffect } from 'react'
 import setAuthToken from './utils/setAuthToken'
 import { loadAdmin } from './Redux/actions/auth'
-import NavBar from './Component/Layout/Navbar'
 import Drives from './Component/Drives/Drives'
 import NewDrive from './Component/Drives/NewDrive'
+import Records from './Component/Records/Records'
 if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
@@ -27,6 +27,7 @@ const App = () => {
           <PrivateRoute exact path='/home' component={Home} />
           <PrivateRoute exact path='/drives' component={Drives} />
           <PrivateRoute exact path='/new-drive' component={NewDrive} />
+          <PrivateRoute exact path='/records' component={Records} />
         </Switch>
       </Router>
     </Provider>

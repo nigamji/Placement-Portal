@@ -174,8 +174,9 @@
 
 .records{
     margin-top: 1%;
-    height: 68%;
+    height: 70vh;
     overflow: scroll;
+    width: 100%;
     &::-webkit-scrollbar {
         width: 20px;
     }
@@ -190,6 +191,7 @@
         background-clip: content-box;
     }
     .recordsTable {
+        width: 100%;
         th{
             z-index:1;
             background-color: $headCol;
