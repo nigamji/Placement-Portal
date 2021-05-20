@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../Layout/Navbar'
-import Select from 'react-select'
 import { connect } from 'react-redux'
 import { getBranches, getColleges, getDriveFilter } from '../../Redux/actions/filters'
+import { createDrive } from '../../Redux/actions/drives'
+import { Multiselect } from 'multiselect-react-dropdown'
+import './NewDrive.css'
 const NewDrive = (props) => {
     const [formData, setFormData] = useState({
         companyName: '',
@@ -15,16 +17,13 @@ const NewDrive = (props) => {
         hsc: null,
         graduation: null,
         diploma: null,
-        notEligible: [],
+        placedIn: [],
         belowPackage: 0
     })
     const {
-        companyName, packages, branch, course, desc, dateOfDrive, ssc, hsc, graduation,
-        diploma, notEligible, belowPackage
+        companyName, packages, branch, course, desc, ssc, hsc, graduation,
+        diploma, placedIn, belowPackage
     } = formData
-    const [selectedBranch, setSelectedBranch] = useState([]);
-    const [selectedCollege, setSelectedCollege] = useState([]);
-    const [selectedDrive, setSelectedDrive] = useState([]);
     useEffect(() => {
         props.getBranches()
     }, [])
@@ -34,28 +33,39 @@ const NewDrive = (props) => {
     useEffect(() => {
         props.getDriveFilter()
     }, [])
-    const branchHandler = e => {
-        // console.log(e);
-        setFormData({ branch: e })
-        // setFormData({ branch: selectedBranch.value })
-    }
-    const collegeHandler = e => {
-        setSelectedCollege([e.target.name] = e.target.value)
-    }
-    const driveHandler = e => {
-        setSelectedDrive([e.target.name] = e.target.value)
-    }
+
     const changeHandler = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
-    console.log(formData)
+    const selectBranch = (selectedList, selectedItem) => {
+        setFormData({ ...formData, ['branch']: [...branch, selectedItem.label] })
+    }
+    const selectCollege = (selectedList, selectedItem) => {
+        setFormData({ ...formData, ['course']: [...course, selectedItem.label] })
+    }
+    const selectNotEligible = (selectedList, selectedItem) => {
+        setFormData({ ...formData, ['placedIn']: [...placedIn, selectedItem._id] })
+    }
+    const removeBranch = (selectedList, selectedItem) => {
+        setFormData({ ...formData, ['branch']: formData.branch.filter(branch => selectedItem.label !== branch) })
+    }
+    const removeCollege = (selectedList, selectedItem) => {
+        setFormData({ ...formData, ['course']: formData.course.filter(course => selectedItem.label !== course) })
+    }
+    const removeNotEligible = (selectedList, selectedItem) => {
+        setFormData({ ...formData, ['placedIn']: formData.placedIn.filter(notE => selectedItem._id !== notE) })
+    }
+    const submitHandler = (e) => {
+        e.preventDefault();
+        props.createDrive(formData);
+    }
     return (
         <div>
             <Navbar />
             <div className="MainBody">
                 <h2>Create a new drive</h2>
                 <br />
-                <form className="form">
+                <form className="form" onSubmit={e => submitHandler(e)}>
                     <div className="DriveForm">
                         <div className="DriveForm-column">
                             <div className="Flex Flex-column DriveForm-column-compact">
@@ -68,41 +78,61 @@ const NewDrive = (props) => {
                                 <input type="number" name="packages" value={packages}
                                     onChange={e => changeHandler(e)} />
                             </div>
-                            <Select name="branch"
+                            <Multiselect
+                                style={{
+                                    searchBox: {
+                                        fontSize: 'smaller', width: '12rem', height: '3rem',
+                                        overflowY: 'scroll', borderRadius: '25px', overflowX: 'hidden'
+                                    }
+                                }} options={props.branch}
+                                displayValue="label"
+                                loading={!props.branch}
                                 placeholder="Branch"
-                                // value={selectedBranch}
-                                options={props.branch}
-                                onChange={e => branchHandler(e)}
-                                isMulti
+                                name='branch'
+                                showArrow
+                                onSelect={(selectedList, selectedItem) => selectBranch(selectedList, selectedItem)}
+                                onRemove={(selectedList, selectedItem) => removeBranch(selectedList, selectedItem)}
                             />
-                            <Select name="college"
+                            <br />
+                            <Multiselect style={{
+                                searchBox: {
+                                    fontSize: 'smaller', width: '12rem', height: '3rem',
+                                    overflowY: 'scroll', borderRadius: '25px', overflowX: 'hidden'
+                                }
+                            }} options={props.college}
+                                displayValue="label"
                                 placeholder="College"
-                                options={props.college}
-                                // value={selectedCollege}
-                                onChange={e => collegeHandler(e)}
-                                isMulti />
+                                showArrow
+                                onSelect={(selectedList, selectedItem) => selectCollege(selectedList, selectedItem)}
+                                onRemove={(selectedList, selectedItem) => removeCollege(selectedList, selectedItem)}
+                            />
                             <div className="Flex Flex-column DriveForm-column-compact">
                                 <label>Description</label>
                                 <textarea style={{ resize: 'none' }} value={desc}
-                                    onChange={e => changeHandler(e)} name="description" rows="3"></textarea>
+                                    onChange={e => changeHandler(e)} name="desc" rows="3"></textarea>
                             </div>
                         </div>
                         <div className="DriveForm-column DriveForm-column-border">
                             <h4>Eligibility:</h4>
-                            <input name="ssc" placeholder="10th %" value={ssc} onChnage={(e) => changeHandler(e)} />
-                            <input name="hsc" placeholder="12th %" value={hsc} onChnage={(e) => changeHandler(e)} />
-                            <input name="diploma" placeholder="Diploma %" value={diploma} onChnage={(e) => changeHandler(e)} />
-                            <input name="graduation" placeholder="Graduation CGPA" value={graduation} onChnage={(e) => changeHandler(e)} />
+                            <input name="ssc" placeholder="10th %" value={ssc} onChange={(e) => changeHandler(e)} />
+                            <input name="hsc" placeholder="12th %" value={hsc} onChange={(e) => changeHandler(e)} />
+                            <input name="diploma" placeholder="Diploma %" value={diploma} onChange={(e) => changeHandler(e)} />
+                            <input name="graduation" placeholder="Graduation CGPA" value={graduation} onChange={(e) => changeHandler(e)} />
                         </div>
                         <div className="DriveForm-column DriveForm-column-border">
                             <h4>Not Eligible: </h4>
-                            <Select
-                                name="placedIn"
-                                options={props.drives}
-                                placeholder="Placed In"
-                                isMulti
-                                // value={selectedDrive}
-                                onChange={e => driveHandler(e)}
+                            <Multiselect style={{
+                                searchBox: {
+                                    fontSize: 'smaller', width: '12rem', height: '3rem',
+                                    overflowY: 'scroll', borderRadius: '25px', overflowX: 'hidden'
+                                }
+                            }} options={props.drives}
+                                displayValue="label"
+                                showArrow
+                                hidePlaceHolder
+                                placeholder="Already place In"
+                                onSelect={(selectedList, selectedItem) => selectNotEligible(selectedList, selectedItem)}
+                                onRemove={(selectedList, selectedItem) => removeNotEligible(selectedList, selectedItem)}
                             />
                             <input type="text" name="belowPackage" placeholder="package"
                                 vaue={belowPackage} onChange={e => changeHandler(e)} />
@@ -124,4 +154,4 @@ const mapStateToProps = state => ({
     college: state.filters.college,
     drives: state.filters.drives
 })
-export default connect(mapStateToProps, { getBranches, getColleges, getDriveFilter })(NewDrive)
+export default connect(mapStateToProps, { getBranches, getColleges, getDriveFilter, createDrive })(NewDrive)

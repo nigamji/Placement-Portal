@@ -24,7 +24,7 @@ router.post('/new-drive', [auth, [
     const {
         companyName,
         dateOfDrive,
-        package,
+        packages,
         branch,
         course,
         desc,
@@ -38,9 +38,9 @@ router.post('/new-drive', [auth, [
     let driveFields = {};
     driveFields.admin = req.user.id;
     if (companyName) driveFields.companyName = companyName;
-    if (package) driveFields.package = package;
-    if (branch) driveFields.branch = branch.split(',').map(branch => branch.trim());
-    if (course) driveFields.course = course.split(',').map(course => course.trim());
+    if (packages) driveFields.package = packages;
+    if (branch) driveFields.branch = branch;
+    if (course) driveFields.course = course;
     if (desc) driveFields.desc = desc;
     if (dateOfDrive) driveFields.dateOfDrive = dateOfDrive;
     driveFields.eligibility = {};
@@ -50,7 +50,7 @@ router.post('/new-drive', [auth, [
     if (graduation) driveFields.eligibility.graduation = graduation;
     driveFields.notEligible = {};
     if (belowPackage) driveFields.notEligible.belowPackage = belowPackage;
-    if (placedIn) driveFields.notEligible.placedIn = placedIn.split(',').map(placedId => placedId.trim());
+    if (placedIn) driveFields.notEligible.placedIn = placedIn;
     try {
         let drive = new Drive(driveFields);
         await drive.save();
