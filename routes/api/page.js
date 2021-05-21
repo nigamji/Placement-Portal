@@ -6,7 +6,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth')
 
 
-router.post('/', async (req,res) => {
+router.post('/', auth , async (req,res) => {
 
     const search = {};
     var ipp = null;
@@ -20,12 +20,12 @@ router.post('/', async (req,res) => {
     else ipp = 10;
     if(req.body.pageNo) pageNo = parseInt(req.body.pageNo);
     else pageNo = 1;
+    
     if(req.body.filtertype){
     const _filtertype = req.body.filtertype.split(',');
-    if(_filtertype[2]) search.Email_Address = _filtertype[0].trim();
+    if(_filtertype[0]) search.Enrollment_No = _filtertype[0].trim();
     if(_filtertype[1]) search.Student_Name = _filtertype[1].trim();
-    if(_filtertype[0]) search.Enrollment_No = _filtertype[2].trim();
-    ipp = 1;
+    if(_filtertype[2]) search.Email_Address = _filtertype[2].trim();
     }
     
     try {   
