@@ -6,7 +6,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 
 
-router.post('/', async (req,res) => {
+router.post('/', auth ,async (req,res) => {
 
     const search = {};
     var ipp = null;
