@@ -1,22 +1,22 @@
 const express = require('express');
 const Student = require('../../models/student');
-const Drive = require('../../models/Drive')
+const Drive = require('../../models/Drive');
 const student = require('../../models/student');
 const router = express.Router();
-const auth = require('../../middleware/auth')
+const auth = require('../../middleware/auth');
 
 
-router.post('/', auth , async (req,res) => {
+router.post('/', async (req,res) => {
 
     const search = {};
     var ipp = null;
     var pageNo = null;
     
-    if(req.body.college) search.College = req.body.college;
-    if(req.body.branch) search.Branch = req.body.branch;
+    if(req.body.college) search.College = {$in: req.body.college};
+    if(req.body.branch) search.Branch = {$in: req.body.branch};
     if(req.body.placedIn) search.placedIn = req.body.placedIn;
     if( req.body.unPlaced === Boolean ) search.isPlaced = req.body.unPlaced;
-    if(req.body.ipp) ipp = parseInt(req.body.ipp); 
+    if(req.body.ipp) ipp = parseInt(req.body.ipp);
     else ipp = 10;
     if(req.body.pageNo) pageNo = parseInt(req.body.pageNo);
     else pageNo = 1;
@@ -37,6 +37,7 @@ router.post('/', auth , async (req,res) => {
     } catch(error) {
         res.json({error});
     }
+
 });
 
 module.exports = router;
