@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import Navbar from '../Layout/Navbar'
 import DataTable from './DataTable'
 import { connect } from 'react-redux'
-import { getDrives } from '../../Redux/actions/drives'
+import { getRecords } from '../../Redux/actions/records'
 
 const Records = (props) => {
     useEffect(() => {
-        props.getDrives();
+        props.getRecords();
     }, [])
     const clickHandler = e => {
-        // props.getRecords();
+
     }
     return (
         <div>
@@ -36,17 +36,18 @@ const Records = (props) => {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Enrollment_Number</th>
-                            <th>EMail_Address</th>
+                            <th>Enrollment Number</th>
+                            <th>Email</th>
                             <th>Branch</th>
-                            <th>Contact_Number</th>
-                            <th>Placed</th>
+                            <th>Contact Number</th>
+                            <th>Placement Status</th>
                             <th>PlacedIn</th>
                             <th>Package</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <DataTable />
+                        {props.records.map(record => <DataTable value={record} />)}
+
                     </tbody>
 
 
@@ -63,6 +64,6 @@ const Records = (props) => {
 }
 
 const mapStateToProps = state => ({
-    records: state.records
+    records: state.records.records
 })
-export default connect(mapStateToProps, { getDrives })(Records)
+export default connect(mapStateToProps, { getRecords })(Records)

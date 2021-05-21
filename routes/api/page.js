@@ -13,17 +13,17 @@ router.post('/', auth, async (req, res) => {
     if (req.body.college) search.College = req.body.college;
     if (req.body.branch) search.Branch = req.body.branch;
     if (req.body.placedIn) search.placedIn = req.body.placedIn;
-    if (req.body.isPlaced === Boolean) search.isPlaced = req.body.isPlaced;
+    if (req.body.unPlaced === Boolean) search.isPlaced = req.body.unPlaced;
     if (req.body.ipp) ipp = parseInt(req.body.ipp);
     else ipp = 10;
     if (req.body.pageNo) pageNo = parseInt(req.body.pageNo);
     else pageNo = 1;
+
     if (req.body.filtertype) {
         const _filtertype = req.body.filtertype.split(',');
-        if (_filtertype[2]) search.Email_Address = _filtertype[0].trim();
+        if (_filtertype[0]) search.Enrollment_No = _filtertype[0].trim();
         if (_filtertype[1]) search.Student_Name = _filtertype[1].trim();
-        if (_filtertype[0]) search.Enrollment_No = _filtertype[2].trim();
-        ipp = 1;
+        if (_filtertype[2]) search.Email_Address = _filtertype[2].trim();
     }
 
     try {

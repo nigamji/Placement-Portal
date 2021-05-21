@@ -14,7 +14,7 @@ const Navbar = (props) => {
                 <img src={img} width="45" height="50" />
                 <ul style={{ alignItems: 'center' }}>
                     <li><Link to="/records">RECORDS</Link></li>
-                    <li><Link to="/drives"><u>DRIVES</u></Link></li>
+                    <li><Link to="/drives">DRIVES</Link></li>
                     <li><Link to="/home">HOME</Link></li>
                 </ul>
             </div>
