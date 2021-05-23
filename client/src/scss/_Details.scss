@@ -1,0 +1,115 @@
+@import 'config';
+@import 'button';
+
+.top{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    width: 100%;
+    border-bottom: solid 1px #000000;
+    img{
+        margin-right: 5%;
+    }
+    .navbar{
+        display: flex;
+        flex-direction: row;
+    }
+    ul{
+        display: flex;
+        list-style-type: none;
+        flex-direction: row;
+        padding: 0%;
+        width:400px;
+        li{
+            margin:0% 5%;
+            color: #000000;
+            font-family: $fontAll;
+        }
+        a{
+        text-decoration: none;
+        color: #000000;
+
+            &:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+    .logoutbtn{
+        margin:0% 2%;
+        padding: 0% 1%;
+        border-radius: 20px;
+    }
+    
+}
+
+
+.heading {
+    color: #004992; 
+    text-align: center;
+    font-family: $fontAll;
+    font-size: 30px;
+    font-weight: 500;
+    text-decoration: underline;
+    margin: 0;
+}
+.detailsTable {
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border: 2px solid $border-color;
+    border-radius: 10px;
+    margin: 2% 4% ;
+    padding: 3% 5%;
+    background-color: $primaryCol;
+    font-size: 1.2rem;
+    overflow: scroll;
+    height:65vh;
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }     
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $headCol;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+    }
+}
+
+
+td {
+    border-bottom: 1px solid white;
+    font-family: $fontSec;
+}
+
+.fvalue {
+    padding-left: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 40%;
+    
+}  
+.edit{        
+    text-decoration: none;
+    font-family:$fontAll; 
+    color: black;
+    width:4%;
+    margin: 1% 2% 1% 95%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+    &:hover{
+        text-decoration: underline;
+        color:$fontColOriental;
+    }
+}
+
+
+

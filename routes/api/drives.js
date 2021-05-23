@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Drive = require('../../models/Drive')
+const Student = require('../../models/student')
 const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 const nodemailer = require('nodemailer')
@@ -23,7 +24,7 @@ router.post('/new-drive', [auth, [
     const {
         companyName,
         dateOfDrive,
-        package,
+        packages,
         branch,
         course,
         desc,
@@ -37,9 +38,9 @@ router.post('/new-drive', [auth, [
     let driveFields = {};
     driveFields.admin = req.user.id;
     if (companyName) driveFields.companyName = companyName;
-    if (package) driveFields.package = package;
-    if (branch) driveFields.branch = branch.split(',').map(branch => branch.trim());
-    if (course) driveFields.course = course.split(',').map(course => course.trim());
+    if (packages) driveFields.package = packages;
+    if (branch) driveFields.branch = branch;
+    if (course) driveFields.course = course;
     if (desc) driveFields.desc = desc;
     if (dateOfDrive) driveFields.dateOfDrive = dateOfDrive;
     driveFields.eligibility = {};
@@ -49,7 +50,7 @@ router.post('/new-drive', [auth, [
     if (graduation) driveFields.eligibility.graduation = graduation;
     driveFields.notEligible = {};
     if (belowPackage) driveFields.notEligible.belowPackage = belowPackage;
-    if (placedIn) driveFields.notEligible.placedIn = placedIn.split(',').map(placedId => placedId.trim());
+    if (placedIn) driveFields.notEligible.placedIn = placedIn;
     try {
         let drive = new Drive(driveFields);
         await drive.save();
@@ -61,7 +62,7 @@ router.post('/new-drive', [auth, [
     const CLIENT_ID = '192702518709-t4d567c9j45lte47eovtlj8ucs74uhus.apps.googleusercontent.com'
     const CLIENT_SECRET = 'V4vbq4_-jGkIWc4EpFRuax_L'
     const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-    const REFRESH_TOKEN = '1//043Er0fRBXQfeCgYIARAAGAQSNwF-L9IrulBNai3MFDUNvKfW7VROYxehKO_kjYuagyQ6zGvAMDSGTmv2gzWaS2PTXpBNX3U5xdY'
+    const REFRESH_TOKEN = '1//04CGBIYa7GoLLCgYIARAAGAQSNwF-L9IrjBdUMO4CtD4XKd21TLQ-a5O24FDiu2Mfb7iYEbkSySAu4C5DTvczF0dqqIGGruAaEP8'
     const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
     oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
     try {
@@ -90,7 +91,7 @@ router.post('/new-drive', [auth, [
         `
         const mailOptions = {
             from: 'Aryan <aryannigam18@gmail.com>',
-            to: 'aryannigamofficial@gmail.com, anamika.atiwari01@gmail.com',
+            to: 'aryannigamofficial@gmail.com, anamika.atiwari01@gmail.com, pandeykaushik0310@gmail.com',
             subject: 'New Drive Announcement',
             text: outputBody,
             html: outputBody
@@ -99,7 +100,7 @@ router.post('/new-drive', [auth, [
         res.json(result)
 
     } catch (error) {
-        console.log(error.message)
+        console.log("Mail " + error.message)
     }
 })
 
@@ -114,6 +115,65 @@ router.get('/', auth, async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Server Error')
+    }
+})
+
+
+// @route Get api/drive/:id
+// @desc get drive by id
+// @access private
+router.get('/:id', auth, async (req, res) => {
+    try {
+        let drive = await Drive.findById(req.params.id)
+        res.json(drive)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).send('Server Error')
+    }
+
+})
+// @route POST api/drive/drive-placed-student/
+// @desc Add placed student enroll in particular drive
+// @access private
+router.post('/drive-placed-student/', [auth,
+    check('enrollmentNo', 'Enrollment is required seperated by ', ' ').not().isEmpty()
+], async (req, res) => {
+    // const drive = await Drive.findById(req.params.id);
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        res.status(400).json({ err: error.array() })
+    }
+    const { id, enrollmentNo } = req.body;
+    let number = null
+    if (enrollmentNo) number = enrollmentNo.split(',').map(number => number.trim())
+    number.forEach(async element => {
+        try {
+            const studentRecord = await Student.find({ Enrollment_No: element });
+            let studentPlacedIn = studentRecord[0].placedIn;
+            studentPlacedIn.push(id);
+            const student = await Student.findOneAndUpdate(
+                { Enrollment_No: element },
+                { $set: { "placedIn": studentPlacedIn, isPlaced: true } },
+                { new: true }
+            )
+            res.send("Placed students record updated")
+        } catch (error) {
+            res.status(401).send("Enrollment not found");
+            console.error(error.message);
+        }
+    });
+})
+// @route DElete api/drive/:id
+// @desc Delete drive by id
+// @access private
+router.post('/delete', auth, async (req, res) => {
+    const { id } = req.body;
+    try {
+        await Drive.findByIdAndRemove(id)
+        res.send('Drive deleted')
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send('Server Error');
     }
 })
 module.exports = router;

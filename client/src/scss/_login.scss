@@ -1,0 +1,76 @@
+@import 'config';
+@import 'button';
+*{
+    margin: 0;
+}
+.loginClass{
+    background:$background;
+}
+
+.box{
+    box-sizing: border-box;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+    height: 80%;
+    box-shadow: 0 4px 5px 4px #d6d6d6;
+    padding: 10% 0;
+    background-color: #ffffff;
+    border: 2px #eee;
+        
+    .logo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: auto;
+        margin-top: auto;
+        font-family: $fontStyleOriental;
+        color: $fontColOriental;
+    }
+
+    .loginBox{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 4px solid #BEBEBE;
+        padding-top: 10%;  
+        padding-bottom: 5%;
+        padding: 0 10%;
+        height: 50%;      
+        h1{
+            font-family: $fontStyleOriental;
+            color: $fontColOriental;
+        }
+    }
+    .login{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+
+        input{
+            padding:5px;
+            box-sizing :border-box;
+            margin: 5%;
+            text-align: center;
+            border-radius: 5px;
+            background-color: (rgba(117, 164, 212, 0.25));
+            border: none;
+            font-family: $fontAll;
+        }
+        
+    }
+}
+@media(max-width:460px) {
+    .box{
+        flex-direction: column;
+        .loginBox{
+            padding: 0%;
+        }
+    }
+    
+}

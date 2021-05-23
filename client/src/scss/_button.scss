@@ -1,0 +1,71 @@
+@import 'config';
+%btn{
+    box-sizing :border-box;
+    margin: 10%;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: groove #0A70D9;
+    font-family: $fontAll;
+    color: #000000;
+    text-decoration: none;
+    &:hover{
+        cursor: pointer;
+        background-color: #0A70D9;
+        color: #ffffff;
+    }
+}
+
+.loginbtn{
+    @extend %btn;
+}
+
+.logoutbtn{
+    @extend %btn;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+.apply{
+    @extend %btn;
+    padding: 1% 5%;
+    margin: 50% 30%;
+    font-size: 20px;
+    border-radius: 15px;
+}
+
+
+.Btn{
+    box-sizing :border-box;
+    margin: 1rem ;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0.6rem 0.6rem ;
+    border: none;
+    font-weight: bold;
+    &-danger{
+        background-color: $danger-color;
+    }
+    &-danger:hover{
+        cursor: pointer;
+        background-color: lighten($danger-color, 10%);
+        color: #ffffff;
+    }
+    &-success{
+        background-color: $success-color;
+        color: #ffffff;
+    }
+    &-success:hover{
+        cursor: pointer;
+        background-color: lighten($success-color,10%);
+
+        color:#000;
+    }
+    &-send{
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: $border-color;
+        padding: 1.2rem 6rem;
+        color: #ffffff;
+        font-size: 26px;
+    }
+}

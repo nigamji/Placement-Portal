@@ -1,0 +1,268 @@
+@import 'config';
+@import 'button';
+
+*body{
+    background: none;
+}
+
+.topAll{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    // position: fixed;
+    z-index: 1;
+    width: 100%;
+    border-bottom: solid 1px #000000;
+    img{
+        margin-right: 5%;
+    }
+    .navbar{
+        display: flex;
+        flex-direction: row;
+    }
+    ul{
+        display: flex;
+        list-style-type: none;
+        flex-direction: row;
+        padding: 0%;
+        width:400px;
+        li{
+            margin:0% 5%;
+            color: #000000;
+            font-family: $fontAll;
+        }
+        a{
+        text-decoration: none;
+        color: #000000;
+
+            &:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+    .logoutbtn{
+        margin:0% 2%;
+        padding: 0% 1%;
+        border-radius: 20px;
+    }
+    
+}
+
+.second{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    .addNew{
+        text-decoration: none;
+        font-family: $fontAll;
+        color:black;
+        margin:1%;
+        &:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.sidepanel  {
+    position: fixed;
+    width: 200px;
+    top: 52px;
+    height: 100%;
+    background-color: $primaryCol;
+    overflow-x: hidden;
+    transition: 0.5s;
+    font-family: $fontSec; 
+    z-index: 2;
+    .filters{
+        display: flex;
+        flex-direction: column;
+        padding: 8px 8px 8px 0px;
+        transition:0.3s;
+        select{
+            border:hidden;
+            font-size: 20px;
+            margin:10%;
+            color:black;
+            background-color: $primaryCol;
+            &:hover{
+                color:$fontColOriental;
+                
+            }
+        }
+        .checkbox{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            border:hidden;
+            font-size: 20px;
+            margin:10%;
+            color:black;
+            background-color: $primaryCol;
+            &:hover{
+                color:$fontColOriental;
+            }
+        }
+
+    }
+    .closebtn {
+        font-size: 36px;
+        overflow: hidden;
+        padding: 10px 15px;
+        color: #000000;
+        display: block;
+        transition: 0.3s;
+        text-decoration: none;
+        &:hover{
+            color:$fontColOriental;
+            cursor: pointer;
+        }
+    }
+  }
+  
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    padding: 10px 15px;
+    border: none;
+    &:hover {
+        background-color: $primaryCol;
+        cursor: pointer;
+    }
+}
+
+.search{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .searchBox{
+        border: groove 2px $primaryCol;
+        border-radius: 20px;
+        font-size: 15px;
+        margin:0% 0.5%;
+        padding:0.5% 1%;
+        input{
+            border:none;
+            font: $fontSec;
+
+        }
+        .submitBtn{
+            border:none;
+            background-color: white;
+        }
+    }
+    select{
+        border:groove 2px $primaryCol;
+        border-radius: 20px;
+        font-size: 15px;
+        margin:0% 0.5%;
+        padding:0.4% 0.2%;
+        font:$fontSec;
+        color:black;
+        &:hover{
+            color:$fontColOriental;
+            cursor: pointer;
+        }
+    }
+}
+
+.records{
+    margin-top: 1%;
+    height: 70vh;
+    overflow: scroll;
+    width: 100%;
+    &::-webkit-scrollbar {
+        width: 20px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }     
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $headCol;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+    }
+    .recordsTable {
+        width: 100%;
+        th{
+            z-index:1;
+            background-color: $headCol;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            font-family: $fontAll;
+            font-weight: lighter;
+        }
+
+        tr:nth-child(odd) {
+            background-color: $primaryCol;
+        }
+
+        th,td {
+            text-align: left;
+            padding: 0.5em 1em;
+        }
+        td{
+            font-family: $fontSec; 
+            a{
+                text-decoration: none;
+                color:#000000;
+                &:hover{
+                    text-decoration: underline;
+                    cursor: pointer;
+                    color:$fontColOriental;
+                }
+            }
+        }
+    } 
+}
+
+.pagination{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    margin: 0 20px;
+    .previous {
+        background-color: $primaryCol;
+        color: black;
+        padding: 5px 10px;
+        margin: 0px 10px;
+        text-decoration: none;
+        border: none;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+      
+    .next {
+        background-color: $headCol;
+        color: white;
+        padding: 5px 10px;
+        margin: 0px 10px;
+        text-decoration: none;
+        border: none;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    a:hover {
+        background-color: #89c4ff;
+        color: black;
+    }
+      
+}
+    
+
+
