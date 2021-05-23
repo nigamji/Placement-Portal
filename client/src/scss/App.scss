@@ -249,3 +249,19 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.alert {
+    padding: 0.8rem;
+    margin: 1rem 0;
+    opacity: 0.9;
+    background: $light-color;
+    color: #333;
+    &-danger{
+        background: $danger-color;
+  color: #fff;
+    }
+    &-success{
+        background: $success-color;
+  color: #fff;
+    }
+  }

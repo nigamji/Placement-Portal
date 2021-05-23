@@ -12,6 +12,7 @@ const Drive = (props) => {
         let id = props.drive._id;
         props.enroll(id, enrollment);
         setEnrollment(null);
+        setToggle(false);
     }
     const deleteHandler = e => {
         e.preventDefault();

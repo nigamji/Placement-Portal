@@ -55,6 +55,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width:100%;
     .addNew{
         text-decoration: none;
         font-family: $fontAll;
@@ -69,8 +70,8 @@
 
 .sidepanel  {
     position: fixed;
-    width: 0;
-    top: 65px;
+    width: 200px;
+    top: 52px;
     height: 100%;
     background-color: $primaryCol;
     overflow-x: hidden;
@@ -238,6 +239,10 @@
         padding: 5px 10px;
         margin: 0px 10px;
         text-decoration: none;
+        border: none;
+        &:hover{
+            cursor: pointer;
+        }
     }
       
     .next {
@@ -246,6 +251,10 @@
         padding: 5px 10px;
         margin: 0px 10px;
         text-decoration: none;
+        border: none;
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     a:hover {

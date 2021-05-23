@@ -11,6 +11,8 @@ import { loadAdmin } from './Redux/actions/auth'
 import Drives from './Component/Drives/Drives'
 import NewDrive from './Component/Drives/NewDrive'
 import Records from './Component/Records/Records'
+import Alert from './Component/Layout/Alert'
+import AddNew from './Component/Records/AddNew'
 if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
@@ -23,11 +25,13 @@ const App = () => {
       <Router>
         {/* <NavBar /> */}
         <Route exact path='/' component={Login} />
+
         <Switch>
           <PrivateRoute exact path='/home' component={Home} />
           <PrivateRoute exact path='/drives' component={Drives} />
           <PrivateRoute exact path='/new-drive' component={NewDrive} />
           <PrivateRoute exact path='/records' component={Records} />
+          <PrivateRoute exact path='/add-new-record' component={AddNew} />
         </Switch>
       </Router>
     </Provider>

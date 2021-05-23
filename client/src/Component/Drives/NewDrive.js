@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getBranches, getColleges, getDriveFilter } from '../../Redux/actions/filters'
 import { createDrive } from '../../Redux/actions/drives'
 import { Multiselect } from 'multiselect-react-dropdown'
+import Alert from '../Layout/Alert'
 import './NewDrive.css'
 const NewDrive = (props) => {
     const [formData, setFormData] = useState({
@@ -58,10 +59,25 @@ const NewDrive = (props) => {
     const submitHandler = (e) => {
         e.preventDefault();
         props.createDrive(formData);
+        setFormData({
+            companyName: '',
+            packages: 0,
+            branch: [],
+            course: [],
+            desc: '',
+            dateOfDrive: null,
+            ssc: null,
+            hsc: null,
+            graduation: null,
+            diploma: null,
+            placedIn: [],
+            belowPackage: 0
+        })
     }
     return (
         <div>
             <Navbar />
+            <Alert />
             <div className="MainBody">
                 <h2>Create a new drive</h2>
                 <br />
@@ -146,7 +162,7 @@ const NewDrive = (props) => {
                     </div>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
 const mapStateToProps = state => ({

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import img from '../assets/456.jpg'
 import { login } from '../../Redux/actions/auth'
 import { Redirect } from 'react-router-dom'
+import Alert from '../Layout/Alert'
 const Login = (props) => {
     const [formData, setFormData] = useState({
         email: '',
@@ -43,6 +44,7 @@ const Login = (props) => {
                     </form>
                 </div>
             </div>
+            <Alert />
         </body>
     )
 }

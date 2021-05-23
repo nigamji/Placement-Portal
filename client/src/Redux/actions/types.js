@@ -21,3 +21,6 @@ export const CREATE_DRIVE = 'CREATE_DRIVE';
 export const CREATE_DRIVE_ERROR = 'CREATE_DRIVE_ERROR';
 export const GET_RECORDS = 'GET_RECORDS';
 export const RECORDS_ERROR = 'RECORDS_ERROR';
+export const GET_PAGE = 'GET_PAGE';
+export const ADD_RECORD = 'ADD_RECORD';
+export const ADD_RECORD_ERROR = 'ADD_RECORD_ERROR';

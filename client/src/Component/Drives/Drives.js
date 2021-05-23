@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { getDrives, saveEnroll, deleteDrive } from '../../Redux/actions/drives'
 import NavBar from '../Layout/Navbar'
 import { Link } from 'react-router-dom'
+import Loader from '../Layout/Loader'
+import Alert from '../Layout/Alert'
 const Drives = ({ getDrives, saveEnroll, deleteDrive, drives: { drives, loading }, location }) => {
     useEffect(() => {
         getDrives();
@@ -11,7 +13,9 @@ const Drives = ({ getDrives, saveEnroll, deleteDrive, drives: { drives, loading 
     return (
         <div>
             <NavBar />
-            { loading ? <p>LOADING...</p> : (
+            <Alert />
+            { loading ? <Fragment>
+                <br /> <Loader /> </Fragment> : (
                 <Fragment>
                     <div class="MainBody">
                         <h2>Drives</h2>

@@ -13,7 +13,7 @@ router.post('/', auth, async (req, res) => {
     if (req.body.college) search.College = req.body.college;
     if (req.body.branch) search.Branch = req.body.branch;
     if (req.body.placedIn) search.placedIn = req.body.placedIn;
-    if (req.body.unPlaced === Boolean) search.isPlaced = req.body.unPlaced;
+    if (req.body.placed === Boolean) search.isPlaced = req.body.placed;
     if (req.body.ipp) ipp = parseInt(req.body.ipp);
     else ipp = 10;
     if (req.body.pageNo) pageNo = parseInt(req.body.pageNo);
