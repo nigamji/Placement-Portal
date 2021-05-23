@@ -2,4 +2,4 @@
 
 ## For now its just
 - npm install
-- npm run server
+- npm run dev
