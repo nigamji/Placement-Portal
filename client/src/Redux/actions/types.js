@@ -24,3 +24,5 @@ export const RECORDS_ERROR = 'RECORDS_ERROR';
 export const GET_PAGE = 'GET_PAGE';
 export const ADD_RECORD = 'ADD_RECORD';
 export const ADD_RECORD_ERROR = 'ADD_RECORD_ERROR';
+export const GET_RECORD = 'GET_RECORD';
+export const RECORD_ERROR = 'RECORD_ERROR';

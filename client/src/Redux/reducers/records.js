@@ -1,4 +1,4 @@
-import { GET_RECORDS, RECORDS_ERROR, ADD_RECORD, ADD_RECORD_ERROR } from '../actions/types'
+import { GET_RECORDS, RECORDS_ERROR, ADD_RECORD, ADD_RECORD_ERROR, GET_RECORD, RECORD_ERROR } from '../actions/types'
 
 const initialState = {
     records: [],
@@ -17,12 +17,25 @@ const records = (state = initialState, action) => {
                 ...state,
                 records: payload[0],
                 loading: false,
+                record: null,
                 totalPage: payload[1].totalPage
             }
         case ADD_RECORD:
             return {
                 ...state,
                 msg: payload,
+                loading: false
+            }
+        case GET_RECORD:
+            return {
+                ...state,
+                record: payload,
+                loading: false
+            }
+        case RECORDS_ERROR:
+            return {
+                ...state,
+                record: null,
                 loading: false
             }
         case ADD_RECORD_ERROR:
