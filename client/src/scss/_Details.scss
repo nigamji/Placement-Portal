@@ -47,7 +47,7 @@
 }
 
 
-.heading {
+.heading2 {
     color: #004992; 
     text-align: center;
     font-family: $fontAll;
@@ -56,18 +56,21 @@
     text-decoration: underline;
     margin: 0;
 }
-.detailsTable {
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
+.detailsTable2 {
+    box-sizing: border-box;
+    width: 90%;
     border: 2px solid $border-color;
     border-radius: 10px;
     margin: 2% 4% ;
     padding: 3% 5%;
     background-color: $primaryCol;
     font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
     overflow: scroll;
-    height:65vh;
+    height:70vh;
+    text-align: left;
     &::-webkit-scrollbar {
         width: 20px;
     }
@@ -83,20 +86,22 @@
     }
 }
 
-
 td {
+    width: 10rem;
     border-bottom: 1px solid white;
     font-family: $fontSec;
+    text-align: center;
 }
 
-.fvalue {
-    padding-left: 10%;
+.fvalue2{
+    text-align: left;
+    padding-left: 1.2rem;
     padding-top: 2%;
     padding-bottom: 2%;
-    width: 40%;
+    // width: 10%;
     
 }  
-.edit{        
+.edit2{        
     text-decoration: none;
     font-family:$fontAll; 
     color: black;

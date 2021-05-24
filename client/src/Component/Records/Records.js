@@ -4,8 +4,10 @@ import DataTable from './DataTable'
 import { connect } from 'react-redux'
 import { getRecords } from '../../Redux/actions/records'
 import Menubar from '../Layout/Menubar'
+import Backdrop from '../Layout/Backdrop'
 import Loader from '../Layout/Loader'
 import { Link } from 'react-router-dom'
+import { Fragment } from 'react'
 const Records = (props) => {
     const [filterData, setFilterData] = useState({
         college: '',
@@ -89,12 +91,18 @@ const Records = (props) => {
     const next = e => {
         if (pageNo <= props.totalPage)
             filterData.pageNo++;
-        submitFilter(e);
+        e.preventDefault();
+        setFilterData({ ...filterData, ['filtertype']: data });
+        props.getRecords(filterData);
+        setToggle(false);
     }
     const prev = e => {
         if (pageNo > 0)
             filterData.pageNo--;
-        submitFilter(e);
+        e.preventDefault();
+        setFilterData({ ...filterData, ['filtertype']: data });
+        props.getRecords(filterData);
+        setToggle(false);
     }
     return (
         <div>
@@ -103,18 +111,22 @@ const Records = (props) => {
                 <button className="openbtn" onClick={(e) => toggleHandler(e)}>☰</button>
                 <Link to="/add-new-record" className="addNew">ADD STUDENT</Link>
             </div>
-            {toggleMenu === true ? <Menubar
-                close={e => closeHandler(e)}
-                selectCollege={(i, j) => selectCollege(i, j)}
-                removeCollege={(i, j) => removeCollege(i, j)}
-                selectBranch={(i, j) => selectBranch(i, j)}
-                removeBranch={(i, j) => removeBranch(i, j)}
-                selectDrive={(i, j) => selectDrive(i, j)}
-                removeDrive={(i, j) => removeDrive(i, j)}
-                check={placed}
-                placemenStatus={(e) => setPlacementStatus(e)}
-                submitFilter={(e) => submitFilter(e)}
-            /> : null}
+            {toggleMenu === true ? <Fragment>
+                {/* <Backdrop /> */}
+                <Menubar
+                    close={e => closeHandler(e)}
+                    selectCollege={(i, j) => selectCollege(i, j)}
+                    removeCollege={(i, j) => removeCollege(i, j)}
+                    selectBranch={(i, j) => selectBranch(i, j)}
+                    removeBranch={(i, j) => removeBranch(i, j)}
+                    selectDrive={(i, j) => selectDrive(i, j)}
+                    removeDrive={(i, j) => removeDrive(i, j)}
+                    check={placed}
+                    placemenStatus={(e) => setPlacementStatus(e)}
+                    submitFilter={(e) => submitFilter(e)}
+                />
+
+            </Fragment> : null}
             <div className="search">
                 <div className="searchBox">
                     <input type="text" name="searchValue" value={searchValue}

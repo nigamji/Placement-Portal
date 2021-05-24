@@ -1,4 +1,4 @@
-import { RECORDS_ERROR, GET_RECORDS, GET_PAGE, ADD_RECORD, ADD_RECORD_ERROR } from './types'
+import { RECORDS_ERROR, GET_RECORDS, ADD_RECORD, ADD_RECORD_ERROR, GET_RECORD, RECORD_ERROR } from './types'
 import axios from 'axios'
 import { setAlert } from './alerts'
 export const getRecords = (filterData) => async dispatch => {
@@ -41,5 +41,19 @@ export const addRecord = (formData) => async dispatch => {
             type: ADD_RECORD_ERROR,
             payload: error.response.data
         })
+    }
+}
+export const getRecord = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/student/${id}`)
+        dispatch({
+            type: GET_RECORD,
+            payload: res.data
+        })
+    } catch (error) {
+        dispatch({
+            type: RECORD_ERROR
+        })
+        dispatch(setAlert("Record Not Found!! Try again.", "danger"))
     }
 }
