@@ -7,8 +7,8 @@
 ### How To Start :
 * Open Terminal
 * write **_npm i_**
-    *Then, *cd/client*
-    *write **_npm i_**
+    * Then, *cd/client*
+    * write **_npm i_**
 * write *cd..*
 * write **_npm run dev_**
 
