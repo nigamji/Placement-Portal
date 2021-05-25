@@ -5,6 +5,7 @@
 
 
 ### How To Start :
+* Clone Project
 * Open Terminal
 * write **_npm i_**
     * Then, *cd/client*
