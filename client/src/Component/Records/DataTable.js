@@ -10,7 +10,7 @@ const DataTable = (props) => {
             <td>{props.value.Contact_Number}</td>
             <td>{props.value.isPlaced ? 'Placed' : 'Unplaced'}</td>
             <td>{props.value.placedIn.map(placedIn => placedIn.companyName + " ")}</td>
-            <td>{props.value.placedIn.map(placedIn => placedIn.package)}</td>
+            <td>{props.value.placedIn.map(placedIn => placedIn.package + ` `)}</td>
         </tr >
     )
 }
