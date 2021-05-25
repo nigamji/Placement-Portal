@@ -1,4 +1,8 @@
 {
     "MongoURI": "mongodb+srv://minorteam:minorteam123@placementdata.uox4k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "jwtSecret": "minorProjectSecret"
+    "jwtSecret": "minorProjectSecret",
+    "CLIENT_ID": "192702518709-t4d567c9j45lte47eovtlj8ucs74uhus.apps.googleusercontent.com",
+    "CLIENT_SECRET": "V4vbq4_-jGkIWc4EpFRuax_L",
+    "REDIRECT_URI": "https://developers.google.com/oauthplayground",
+    "REFRESH_TOKEN": "1//04CGBIYa7GoLLCgYIARAAGAQSNwF-L9IrjBdUMO4CtD4XKd21TLQ-a5O24FDiu2Mfb7iYEbkSySAu4C5DTvczF0dqqIGGruAaEP8"
 }
